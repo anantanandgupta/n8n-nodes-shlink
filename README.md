@@ -22,7 +22,8 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 There is only one node in this package capable of interacting with below resources and respective operations:
 
 - Short Links  
-	- Create short url
+	- Create short url *(v0.0.1)*
+	- List short urls *(v0.0.2)*
 	- more options coming soon ...
 
 ## Credentials

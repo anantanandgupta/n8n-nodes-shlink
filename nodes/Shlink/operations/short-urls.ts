@@ -2,20 +2,21 @@ import { INodeProperties } from 'n8n-workflow';
 import { resourceKeys } from '../resources';
 
 const operations = {
-	create: 'create',
+	short_url_create: 'short_url_create',
+	short_url_list: 'short_url_list'
 } as const;
 
 const operationParameters: INodeProperties[] = [
 	{
 		displayName: 'Long URL',
 		description: 'URL to be shortened',
-		name: 'shortCodeLongURL',
+		name: 'shortURLLongURL',
 		required: true,
 		type: 'string',
 		default: '',
 		displayOptions: {
 			show: {
-				operation: [operations.create],
+				operation: [operations.short_url_create],
 				resource: [resourceKeys['short-urls']],
 			},
 		},
@@ -23,12 +24,12 @@ const operationParameters: INodeProperties[] = [
 	{
 		displayName: 'Title',
 		description: 'Display title of the URL',
-		name: 'shortCodeTitle',
+		name: 'shortURLTitle',
 		type: 'string',
 		default: undefined,
 		displayOptions: {
 			show: {
-				operation: [operations.create],
+				operation: [operations.short_url_create],
 				resource: [resourceKeys['short-urls']],
 			},
 		},
@@ -36,12 +37,12 @@ const operationParameters: INodeProperties[] = [
 	{
 		displayName: 'Crawlable',
 		description: "Whether this URL will be included as 'Allow' in Shlink's robots.txt",
-		name: 'shortCodeIsCrawlable',
+		name: 'shortURLIsCrawlable',
 		type: 'boolean',
 		default: false,
 		displayOptions: {
 			show: {
-				operation: [operations.create],
+				operation: [operations.short_url_create],
 				resource: [resourceKeys['short-urls']],
 			},
 		},
@@ -49,12 +50,12 @@ const operationParameters: INodeProperties[] = [
 	{
 		displayName: 'Forward Query',
 		description: 'Whether the query params should be forwarded from the short URL to the long one',
-		name: 'shortCodeForwardQuery',
+		name: 'shortURLForwardQuery',
 		type: 'boolean',
 		default: true,
 		displayOptions: {
 			show: {
-				operation: [operations.create],
+				operation: [operations.short_url_create],
 				resource: [resourceKeys['short-urls']],
 			},
 		},
@@ -63,12 +64,12 @@ const operationParameters: INodeProperties[] = [
 		displayName: 'Find If Exists',
 		description:
 			'Whether force existing matching URL to be returned if found, instead of creating a new one',
-		name: 'shortCodeFindIfExists',
+		name: 'shortURLFindIfExists',
 		type: 'boolean',
 		default: true,
 		displayOptions: {
 			show: {
-				operation: [operations.create],
+				operation: [operations.short_url_create],
 				resource: [resourceKeys['short-urls']],
 			},
 		},
@@ -77,12 +78,12 @@ const operationParameters: INodeProperties[] = [
 		displayName: 'Domain',
 		description: 'The domain to which the short URL will be attached',
 		required: true,
-		name: 'shortCodeDomain',
+		name: 'shortURLDomain',
 		type: 'string',
 		default: '',
 		displayOptions: {
 			show: {
-				operation: [operations.create],
+				operation: [operations.short_url_create],
 				resource: [resourceKeys['short-urls']],
 			},
 		},
@@ -91,12 +92,12 @@ const operationParameters: INodeProperties[] = [
 		displayName: 'Path Prefix',
 		description:
 			'A prefix that will be prepended to provided custom slug or auto-generated short code',
-		name: 'shortCodePathPrefix',
+		name: 'shortURLPathPrefix',
 		type: 'string',
 		default: '',
 		displayOptions: {
 			show: {
-				operation: [operations.create],
+				operation: [operations.short_url_create],
 				resource: [resourceKeys['short-urls']],
 			},
 		},
@@ -104,7 +105,7 @@ const operationParameters: INodeProperties[] = [
 	{
 		displayName: 'URL Generation Method',
 		description: 'Choose how to generate the short URL',
-		name: 'urlGenerateOption',
+		name: 'shortURLGenerationMethod',
 		type: 'options',
 		required: true,
 		default: 'short_code',
@@ -120,7 +121,7 @@ const operationParameters: INodeProperties[] = [
 		],
 		displayOptions: {
 			show: {
-				operation: [operations.create],
+				operation: [operations.short_url_create],
 				resource: [resourceKeys['short-urls']],
 			},
 		},
@@ -128,21 +129,21 @@ const operationParameters: INodeProperties[] = [
 	{
 		displayName: 'Custom Slug',
 		description: 'A unique custom slug to be used instead of the generated short code',
-		name: 'shortCodeCustomSlug',
+		name: 'shortURLCustomSlug',
 		type: 'string',
 		default: '',
 		displayOptions: {
 			show: {
-				operation: [operations.create],
+				operation: [operations.short_url_create],
 				resource: [resourceKeys['short-urls']],
-				urlGenerateOption: ['custom_slug'],
+				shortURLGenerationMethod: ['custom_slug'],
 			},
 		},
 	},
 	{
 		displayName: 'Short Code Length',
 		description: 'The length for generated short code. It has to be at least 4 and defaults to 5.',
-		name: 'shortCodeLength',
+		name: 'shortURLLength',
 		type: 'number',
 		typeOptions: {
 			minValue: 4,
@@ -150,9 +151,41 @@ const operationParameters: INodeProperties[] = [
 		default: 5,
 		displayOptions: {
 			show: {
-				operation: [operations.create],
+				operation: [operations.short_url_create],
 				resource: [resourceKeys['short-urls']],
-				urlGenerateOption: ['short_code'],
+				shortURLGenerationMethod: ['short_code'],
+			},
+		},
+	},
+	{
+		displayName: 'Page',
+		description: 'The length for generated short code. It has to be at least 4 and defaults to 5.',
+		name: 'shortURLPage',
+		type: 'number',
+		typeOptions: {
+			minValue: 1,
+		},
+		default: 1,
+		displayOptions: {
+			show: {
+				operation: [operations.short_url_list],
+				resource: [resourceKeys['short-urls']],
+			},
+		},
+	},
+	{
+		displayName: 'Items / Page',
+		description: 'The length for generated short code. It has to be at least 4 and defaults to 5.',
+		name: 'shortURLItemsPerPage',
+		type: 'number',
+		typeOptions: {
+			minValue: 1,
+		},
+		default: undefined,
+		displayOptions: {
+			show: {
+				operation: [operations.short_url_list],
+				resource: [resourceKeys['short-urls']],
 			},
 		},
 	},
@@ -172,22 +205,39 @@ const operationOptions: INodeProperties[] = [
 		options: [
 			{
 				name: 'Create',
-				value: operations.create,
+				value: operations.short_url_create,
 				action: 'Create short url',
 				routing: {
 					request: {
 						method: 'POST',
 						url: '/short-urls',
 						body: {
-							longUrl: '={{ $parameter["shortCodeLongURL"] }}',
-							title: '={{ $parameter["shortCodeTitle"] ? $parameter["shortCodeTitle"] : $parameter["shortCodeLongURL"] }}',
-							crawlable: '={{ $parameter["shortCodeIsCrawlable"] }}',
-							forwardQuery: '={{ $parameter["shortCodeForwardQuery"] }}',
-							domain: '={{ $parameter["shortCodeDomain"] }}',
-							pathPrefix: '={{ $parameter["shortCodePathPrefix"] }}',
-							customSlug: '={{ $parameter["urlGenerateOption"] === "custom_slug" ? $parameter["shortCodeCustomSlug"] : undefined }}',
-							findIfExists: '={{ $parameter["shortCodeFindIfExists"] }}',
-							shortCodeLength: '={{ $parameter["urlGenerateOption"] === "short_code" ? $parameter["shortCodeLength"] : undefined }}',
+							longUrl: '={{ $parameter["shortURLLongURL"] }}',
+							title: '={{ $parameter["shortURLTitle"] ? $parameter["shortURLTitle"] : $parameter["shortURLLongURL"] }}',
+							crawlable: '={{ $parameter["shortURLIsCrawlable"] }}',
+							forwardQuery: '={{ $parameter["shortURLForwardQuery"] }}',
+							domain: '={{ $parameter["shortURLDomain"] }}',
+							pathPrefix: '={{ $parameter["shortURLPathPrefix"] }}',
+							customSlug: '={{ $parameter["shortURLGenerationMethod"] === "custom_slug" ? $parameter["shortURLCustomSlug"] : undefined }}',
+							findIfExists: '={{ $parameter["shortURLFindIfExists"] }}',
+							shortCodeLength: '={{ $parameter["shortURLGenerationMethod"] === "short_code" ? $parameter["shortURLLength"] : undefined }}',
+						},
+						encoding: 'json',
+						json: true,
+					},
+				},
+			},
+			{
+				name: 'List',
+				value: operations.short_url_list,
+				action: 'List short urls',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/short-urls',
+						qs: {
+							itemsPerPage: '={{ $parameter["shortURLItemsPerPage"] }}',
+							page: '={{ $parameter["shortURLPage"] }}',
 						},
 						encoding: 'json',
 						json: true,
@@ -195,7 +245,7 @@ const operationOptions: INodeProperties[] = [
 				},
 			},
 		],
-		default: 'create',
+		default: 'short_url_create',
 	},
 	...operationParameters,
 ];
