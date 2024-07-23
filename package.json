@@ -1,0 +1,57 @@
+{
+  "name": "n8n-nodes-shlink",
+  "version": "0.0.1",
+  "description": "n8n nodes to call shlink apis.",
+  "keywords": [
+    "n8n-community-node-package",
+    "shlink",
+    "n8n",
+    "short url"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/anantanandgupta/n8n-nodes-shlink",
+  "author": {
+    "name": "Anant Anand Gupta",
+    "email": "contact@opensource.anantanandgupta.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anantanandgupta/n8n-nodes-shlink.git"
+  },
+  "engines": {
+    "node": ">=18.10"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint nodes credentials package.json",
+    "lint:fix": "eslint nodes credentials package.json --fix",
+    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes credentials package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/ShlinkApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Shlink/Shlink.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^7.15.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.1",
+    "gulp": "^4.0.2",
+    "n8n-workflow": "*",
+    "prettier": "^3.3.2",
+    "typescript": "^5.5.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}
