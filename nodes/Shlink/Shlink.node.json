@@ -1,18 +1,18 @@
 {
-	"node": "n8n-nodes-base.Shlink",
-	"nodeVersion": "1.0",
-	"codexVersion": "1.0",
-	"categories": ["Communication", "Sales", "Marketing & Content"],
-	"resources": {
-		"credentialDocumentation": [
-			{
-				"url": "https://shlink.io/documentation/api-docs/authentication/"
-			}
-		],
-		"primaryDocumentation": [
-			{
-				"url": "https://shlink.io/documentation/api-docs/authentication/"
-			}
-		]
-	}
+  "node": "n8n-nodes-base.Shlink",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "categories": ["Communication", "Sales", "Marketing & Content"],
+  "resources": {
+    "credentialDocumentation": [
+      {
+        "url": "https://shlink.io/documentation/api-docs/authentication/"
+      }
+    ],
+    "primaryDocumentation": [
+      {
+        "url": "https://shlink.io/documentation/api-docs/authentication/"
+      }
+    ]
+  }
 }

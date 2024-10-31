@@ -5,8 +5,8 @@ import { shortURLsOperationOptions } from "./operations";
 export class Shlink implements INodeType {
   description: INodeTypeDescription = {
     displayName: 'Shlink',
-		name: 'shlink',
-		icon: {
+    name: 'shlink',
+    icon: {
       dark: 'file:Shlink.icon.svg',
       light: 'file:Shlink.icon.svg',
     },
@@ -14,7 +14,7 @@ export class Shlink implements INodeType {
     version: [1],
     defaultVersion: 1,
     subtitle: '={{ $parameter["resource"] + " (" + $parameter["operation"] + ")" }}',
-		description: 'Call Shlink endpoints.',
+    description: 'Call Shlink endpoints.',
     defaults: {
       name: 'Shlink',
     },
@@ -33,9 +33,9 @@ export class Shlink implements INodeType {
         'Content-Type': 'application/json',
       }
     },
-		properties: [
-		  resourceOptions,
+    properties: [
+      resourceOptions,
       ...shortURLsOperationOptions,
-		]
-	};
+    ]
+  };
 }

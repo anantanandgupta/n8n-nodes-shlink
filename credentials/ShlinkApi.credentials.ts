@@ -1,16 +1,20 @@
-import { IAuthenticate, ICredentialType, INodeProperties } from 'n8n-workflow';
-
+import { IAuthenticate, IconFile, ICredentialType, INodeProperties } from 'n8n-workflow';
+const icon: IconFile = 'file:Shlink.icon.svg';
 export class ShlinkApi implements ICredentialType {
   name = 'shlinkApi';
+  icon = {
+    dark: icon,
+    light: icon,
+  };
   displayName = 'Shlink API';
   documentationUrl: string = 'https://shlink.io/documentation/api-docs/authentication/';
   authenticate: IAuthenticate = {
     type: 'generic',
     properties: {
       headers: {
-        'x-api-key': '={{ $credentials["apiKey"] }}'
-      }
-    }
+        'x-api-key': '={{ $credentials["apiKey"] }}',
+      },
+    },
   };
   properties: INodeProperties[] = [
     {
@@ -21,7 +25,7 @@ export class ShlinkApi implements ICredentialType {
         password: true,
       },
       required: true,
-      default: ''
+      default: '',
     },
     {
       displayName: 'Host',
